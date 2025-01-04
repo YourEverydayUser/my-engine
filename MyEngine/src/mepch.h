@@ -15,6 +15,7 @@ to speed up compilation.*/
 #include <unordered_map>
 #include <unordered_set>
 
+#include "MyEngine/Log.h"
 
 #ifdef ME_PLATFORM_WINDOWS
 	#include <Windows.h>
