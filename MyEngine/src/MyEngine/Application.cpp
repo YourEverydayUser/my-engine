@@ -1,7 +1,9 @@
+#include "mepch.h"
 #include "Application.h"
 
 #include "MyEngine/Log.h"
 #include "Events/MouseEvent.h"
+#include "Events/ApplicationEvent.h"
 
 namespace MyEngine {
 
@@ -14,7 +16,7 @@ namespace MyEngine {
 	}
 
 	void Application::Run() {
-		MouseButtonPressedEvent e(4);
+		WindowResizeEvent e(1280, 720);
 		ME_CORE_TRACE(e);
 
 		while (true);

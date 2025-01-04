@@ -2,8 +2,6 @@
 
 #include "MyEngine/Core.h"
 
-#include <functional>
-
 namespace MyEngine {
 
 	enum class EventType {

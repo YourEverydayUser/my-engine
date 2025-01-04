@@ -4,8 +4,6 @@
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
 
-#include <memory>
-
 namespace MyEngine {
 
 	class MYENGINE_API Log {

@@ -2,8 +2,6 @@
 
 #include "MyEngine/Events/Event.h"
 
-#include <sstream>
-
 namespace MyEngine {
 
 	class MYENGINE_API MouseMovedEvent : public Event {

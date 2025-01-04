@@ -2,8 +2,6 @@
 
 #include "Event.h"
 
-#include <sstream>
-
 namespace MyEngine {
 	
 	/*Base class for all KeyEvents*/
