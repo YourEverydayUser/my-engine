@@ -24,6 +24,8 @@ namespace MyEngine {
 		 EventCategoryMouseButton      = BIT(4)
 	};
 
+/*A Macro is just something we defined and which will be replaced by the preprocesser during the compilation process.
+For this example this saves us the boiler plate code where each event would have to implement these 3 methods.*/
 #define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::##type; }\
 								virtual EventType GetEventType() const override { return GetStaticType(); }\
 								virtual const char* GetName() const override { return #type; }
