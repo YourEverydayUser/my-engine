@@ -35,6 +35,7 @@
       <Filter>MyEngine</Filter>
     </ClInclude>
     <ClInclude Include="src\mepch.h" />
+    <ClInclude Include="src\MyEngine\IWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\MyEngine\Application.cpp">
