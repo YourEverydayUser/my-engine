@@ -11,7 +11,7 @@ namespace MyEngine {
 		 None = 0,
 		 WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved,
 		 AppTick, AppUpdate, AppRender,
-		 KeyPressed, KeyReleased,
+		 KeyPressed, KeyReleased, KeyTyped,
 		 MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
 	};
 
@@ -45,5 +45,12 @@ namespace MyEngine {
 
 	protected:
 		bool m_Handled = false;
+	};
+
+	class EventDispatcher {
+		template<typename T>
+		using EventFn = std::function<bool(T&)>;
+
+
 	};
 }
