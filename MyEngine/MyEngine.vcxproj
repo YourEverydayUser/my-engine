@@ -157,13 +157,15 @@
     <ClInclude Include="src\MyEngine\Events\Event.h" />
     <ClInclude Include="src\MyEngine\Events\KeyEvent.h" />
     <ClInclude Include="src\MyEngine\Events\MouseEvent.h" />
-    <ClInclude Include="src\MyEngine\Log.h" />
-    <ClInclude Include="src\mepch.h" />
     <ClInclude Include="src\MyEngine\IWindow.h" />
+    <ClInclude Include="src\MyEngine\Log.h" />
+    <ClInclude Include="src\Platform\WindowsWindow.h" />
+    <ClInclude Include="src\mepch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\MyEngine\Application.cpp" />
     <ClCompile Include="src\MyEngine\Log.cpp" />
+    <ClCompile Include="src\Platform\WindowsWindow.cpp" />
     <ClCompile Include="src\mepch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>

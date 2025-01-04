@@ -2,6 +2,7 @@
 #include "Application.h"
 
 #ifdef ME_PLATFORM_WINDOWS
+#define ME_ENABLE_ASSERTS = true;
 
 extern MyEngine::Application* MyEngine::CreateApplication();
 

@@ -7,6 +7,9 @@
     <Filter Include="MyEngine\Events">
       <UniqueIdentifier>{C5CCB583-3158-2348-3A69-A63CA6737F48}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\MyEngine.h" />
@@ -31,11 +34,16 @@
     <ClInclude Include="src\MyEngine\Events\MouseEvent.h">
       <Filter>MyEngine\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\MyEngine\IWindow.h">
+      <Filter>MyEngine</Filter>
+    </ClInclude>
     <ClInclude Include="src\MyEngine\Log.h">
       <Filter>MyEngine</Filter>
     </ClInclude>
+    <ClInclude Include="src\Platform\WindowsWindow.h">
+      <Filter>Platform</Filter>
+    </ClInclude>
     <ClInclude Include="src\mepch.h" />
-    <ClInclude Include="src\MyEngine\IWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\MyEngine\Application.cpp">
@@ -43,6 +51,9 @@
     </ClCompile>
     <ClCompile Include="src\MyEngine\Log.cpp">
       <Filter>MyEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\WindowsWindow.cpp">
+      <Filter>Platform</Filter>
     </ClCompile>
     <ClCompile Include="src\mepch.cpp" />
   </ItemGroup>
