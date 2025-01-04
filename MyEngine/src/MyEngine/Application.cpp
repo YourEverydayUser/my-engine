@@ -17,8 +17,12 @@ namespace MyEngine {
 
 	void Application::Run() {
 		WindowResizeEvent e(1280, 720);
-		ME_CORE_TRACE(e);
-
+		if (e.GetEventType() == EventType::WindowResize) {
+			ME_CORE_CRITICAL(e);
+		} 
+		if (e.GetEventType() == EventType::AppRender) {
+			ME_CORE_TRACE(e);
+		}
 		while (true);
 	}
 }
