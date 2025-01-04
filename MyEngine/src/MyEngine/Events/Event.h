@@ -1,8 +1,7 @@
 #pragma once
 
-#include "../Core.h"
+#include "MyEngine/Core.h"
 
-#include <string>
 #include <functional>
 
 namespace MyEngine {
@@ -26,7 +25,8 @@ namespace MyEngine {
 
 /*A Macro is just something we defined and which will be replaced by the preprocesser during the compilation process.
 For this example this saves us the boiler plate code where each event would have to implement these 3 methods.*/
-#define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::##type; }\
+
+#define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::type; }\
 								virtual EventType GetEventType() const override { return GetStaticType(); }\
 								virtual const char* GetName() const override { return #type; }
 
@@ -70,7 +70,7 @@ For this example this saves us the boiler plate code where each event would have
 		Event& m_Event;
 	};
 
-	inline std::ostream& operator<<(std::ostream& os, const Event& e) {
-		return os << e.ToString();
+	inline std::string format_as(const Event& e) {
+		return e.ToString();
 	}
 }
