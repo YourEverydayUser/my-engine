@@ -15,7 +15,7 @@ namespace MyEngine {
 
 	protected:
 		KeyEvent(int keyCode)
-			: m_KeyCode(keyCode) { }
+			: m_KeyCode(keyCode) {}
 
 		int m_KeyCode;
 	};
@@ -23,7 +23,7 @@ namespace MyEngine {
 	class MYENGINE_API KeyPressedEvent : public KeyEvent {
 	public:
 		KeyPressedEvent(int keyCode, int repeatCount)
-			: KeyEvent(keyCode), m_RepeatCount(repeatCount) { }
+			: KeyEvent(keyCode), m_RepeatCount(repeatCount) {}
 
 		inline int GetRepeatCount() const { return m_RepeatCount; }
 
@@ -42,7 +42,7 @@ namespace MyEngine {
 	class MYENGINE_API KeyReleasedEvent : public KeyEvent {
 	public:
 		KeyReleasedEvent(int keyCode)
-			: KeyEvent(keyCode) { }
+			: KeyEvent(keyCode) {}
 
 		std::string ToString() const override {
 			std::stringstream ss;
@@ -56,7 +56,7 @@ namespace MyEngine {
 	class MYENGINE_API KeyTypedEvent : public KeyEvent {
 	public:
 		KeyTypedEvent(int keyCode) 
-			: KeyEvent(keyCode) { }
+			: KeyEvent(keyCode) {}
 
 		std::string ToString() const override {
 			std::stringstream ss;

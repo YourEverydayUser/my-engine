@@ -69,4 +69,8 @@ For this example this saves us the boiler plate code where each event would have
 	private:
 		Event& m_Event;
 	};
+
+	inline std::ostream& operator<<(std::ostream& os, const Event& e) {
+		return os << e.ToString();
+	}
 }
