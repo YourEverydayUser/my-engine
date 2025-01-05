@@ -8,6 +8,7 @@
 #include <GLFW/glfw3.h>
 
 namespace MyEngine {
+
 //std::bind is a utility function that creates a callable object by 
 //binding specific arguments to a function. Here we create a callable
 //for the member function x of the current class instance (this), with
@@ -21,13 +22,7 @@ namespace MyEngine {
 		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent);
 	}
 
-	Application::~Application() {
-
-	}
-
-	void Application::OnEvent(Event& e) {
-		ME_CORE_INFO("{0}", e);
-	}
+	Application::~Application() = default;
 
 	void Application::Run() {
 		while (m_Running) {
@@ -35,5 +30,19 @@ namespace MyEngine {
 			glClear(GL_COLOR_BUFFER_BIT);
 			m_Window->OnUpdate();
 		}
+		ME_CORE_CRITICAL("Terminating Engine");
+	}
+
+	/*Here we can react on any event which is triggered in the application*/
+	void Application::OnEvent(Event& e) {
+		EventDispatcher dispatcher(e);
+		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClose);
+
+		ME_CORE_TRACE("{0}", e);
+	}
+
+	bool Application::OnWindowClose(WindowCloseEvent& e) {
+		m_Running = false;
+		return true;
 	}
 }

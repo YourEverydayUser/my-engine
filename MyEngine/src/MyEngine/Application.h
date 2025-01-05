@@ -2,6 +2,7 @@
 
 #include "Core.h"
 #include "IWindow.h"
+#include "Events/ApplicationEvent.h"
 
 namespace MyEngine {
 
@@ -12,9 +13,11 @@ namespace MyEngine {
 		virtual ~Application();
 
 		void Run();
-
 		void OnEvent(Event& e);
+
 	private:
+		bool OnWindowClose(WindowCloseEvent& e);
+
 		std::unique_ptr<IWindow> m_Window;
 		bool m_Running = true;
 	};

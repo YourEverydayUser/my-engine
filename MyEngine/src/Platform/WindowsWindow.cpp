@@ -9,6 +9,10 @@ namespace MyEngine {
 	
 	static bool s_GLFWInitialized = false;
 
+	static void GLFWErrorCallback(int error, const char* description) {
+		ME_CORE_ERROR("GLFW Error ({0}): {1}", error, description);
+	}
+
 	IWindow* IWindow::Create(const WindowProps& props) {
 		return new WindowsWindow(props);
 	}
@@ -29,6 +33,7 @@ namespace MyEngine {
 		if (!s_GLFWInitialized) {
 			int success = glfwInit();
 			ME_CORE_ASSERT(success, "Could not initialize GLFW!");
+			glfwSetErrorCallback(GLFWErrorCallback);
 			s_GLFWInitialized = true;
 		}
 
@@ -39,11 +44,8 @@ namespace MyEngine {
 
 		// Set GLFW callbacks
 		CreateWindowEventCallback();
-		CreateWindowCloseEventCallback();
 		CreateKeyEventCallback();
 		CreateMouseEventCallback();
-		CreateMouseScrollEventCallback();
-
 	}
 
 	void WindowsWindow::Shutdown() {
