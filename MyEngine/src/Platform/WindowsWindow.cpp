@@ -1,6 +1,10 @@
 #include "mepch.h"
 #include "WindowsWindow.h"
 
+#include "MyEngine/Events/ApplicationEvent.h"
+#include "MyEngine/Events/MouseEvent.h"
+#include "MyEngine/Events/KeyEvent.h"
+
 namespace MyEngine {
 	
 	static bool s_GLFWInitialized = false;
@@ -32,6 +36,10 @@ namespace MyEngine {
 		glfwMakeContextCurrent(m_Window);
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
+
+		// Set GLFW callbacks
+		CreateWindowResizeEventCallback();
+
 	}
 
 	void WindowsWindow::Shutdown() {
@@ -54,5 +62,50 @@ namespace MyEngine {
 
 	bool WindowsWindow::IsVSync() const {
 		return m_Data.VSync;
+	}
+
+	void WindowsWindow::CreateWindowResizeEventCallback() {
+		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height) {
+			// we can only dereference it like this because we know that the data at that 
+			// address is infact of type WindowData since we created it on line 31
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			data.Width = width;
+			data.Height = height;
+
+			WindowResizeEvent event(width, height);
+			data.EventCallback(event);
+		});
+	}
+
+	void WindowsWindow::CreateWindowCloseEventCallback() {
+		glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window) {
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			WindowCloseEvent event;
+			data.EventCallback(event);
+		});
+	}
+
+	void WindowsWindow::CreateKeyEventCallback() {
+		glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+			switch (action) {
+				case GLFW_PRESS: {
+					KeyPressedEvent event(key, 0);
+					data.EventCallback(event);
+					break;
+				}
+				case GLFW_RELEASE: {
+					KeyReleasedEvent event(key);
+					data.EventCallback(event);
+					break;
+				}
+				case GLFW_REPEAT: {
+					KeyPressedEvent event(key, 1);
+					data.EventCallback(event);
+					break;
+				}
+			}
+		});
 	}
 }

@@ -26,6 +26,10 @@ namespace MyEngine {
 		virtual void Init(const WindowProps& props);
 		virtual void Shutdown();
 
+		void CreateWindowResizeEventCallback();
+		void CreateWindowCloseEventCallback();
+		void CreateKeyEventCallback();
+
 		GLFWwindow* m_Window;
 
 		struct WindowData {
