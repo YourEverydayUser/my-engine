@@ -21,6 +21,9 @@ namespace MyEngine {
 	// Interface representing a desktop system based Window
 	class MYENGINE_API IWindow {
 	public:
+		// std::function is a general purpose callable wrapper which can store and invoke
+		// any callable object. void(Event&) is the signature of the callable meaning it takes
+		// a single argument of type Event (a reference to an event object) and returns void
 		using EventCallbackFn = std::function<void(Event&)>;
 
 		virtual ~IWindow() {}

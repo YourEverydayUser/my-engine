@@ -16,6 +16,8 @@ namespace MyEngine {
 		inline unsigned int GetWidth() const override { return m_Data.Width; }
 		inline unsigned int GetHeight() const override { return m_Data.Height; }
 
+		// here EventCallbackFn is a type alias which will simply be replaced by the preprocessor to:
+		// std::function<void(Event&)>
 		inline void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
 		void SetVSync(bool enabled) override;
 		bool IsVSync() const override;
