@@ -38,7 +38,7 @@ namespace MyEngine {
 		SetVSync(true);
 
 		// Set GLFW callbacks
-		CreateWindowResizeEventCallback();
+		CreateWindowEventCallback();
 		CreateWindowCloseEventCallback();
 		CreateKeyEventCallback();
 		CreateMouseEventCallback();
@@ -68,7 +68,8 @@ namespace MyEngine {
 		return m_Data.VSync;
 	}
 
-	void WindowsWindow::CreateWindowResizeEventCallback() const {
+	void WindowsWindow::CreateWindowEventCallback() const {
+		// widow resize
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height) {
 			// we can only dereference it like this because we know that the data at that 
 			// address is infact of type WindowData since we created it on line 31
@@ -79,9 +80,8 @@ namespace MyEngine {
 			WindowResizeEvent event(width, height);
 			data.EventCallback(event);
 		});
-	}
 
-	void WindowsWindow::CreateWindowCloseEventCallback() const {
+		// window close
 		glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window) {
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 			WindowCloseEvent event;
@@ -114,6 +114,7 @@ namespace MyEngine {
 	}
 
 	void WindowsWindow::CreateMouseEventCallback() const {
+		// mouse presses
 		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int button, int action, int mods) {
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 			
@@ -130,13 +131,18 @@ namespace MyEngine {
 				}
 			}
 		});
-	}
 
-	void WindowsWindow::CreateMouseScrollEventCallback() const {
+		// scrolling
 		glfwSetScrollCallback(m_Window, [](GLFWwindow* window, double xOffset, double yOffset) {
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-
 			MouseScrolledEvent event((float)xOffset, (float)yOffset);
+			data.EventCallback(event);
+		});
+
+		// cursor position event
+		glfwSetCursorPosCallback(m_Window, [](GLFWwindow* window, double xPos, double yPos) {
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			MouseMovedEvent event((float)xPos, (float)yPos);
 			data.EventCallback(event);
 		});
 	}

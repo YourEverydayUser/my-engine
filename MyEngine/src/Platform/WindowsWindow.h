@@ -26,8 +26,7 @@ namespace MyEngine {
 		virtual void Init(const WindowProps& props);
 		virtual void Shutdown();
 
-		void CreateWindowResizeEventCallback() const;
-		void CreateWindowCloseEventCallback() const;
+		void CreateWindowEventCallback() const;
 		void CreateKeyEventCallback() const;
 		void CreateMouseEventCallback() const;
 
