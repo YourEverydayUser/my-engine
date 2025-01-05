@@ -32,13 +32,17 @@ namespace MyEngine {
 			s_GLFWInitialized = true;
 		}
 
-		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
+		m_Window = glfwCreateWindow((int)(props.Width), (int)(props.Height), m_Data.Title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(m_Window);
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 
 		// Set GLFW callbacks
 		CreateWindowResizeEventCallback();
+		CreateWindowCloseEventCallback();
+		CreateKeyEventCallback();
+		CreateMouseEventCallback();
+		CreateMouseScrollEventCallback();
 
 	}
 
@@ -64,7 +68,7 @@ namespace MyEngine {
 		return m_Data.VSync;
 	}
 
-	void WindowsWindow::CreateWindowResizeEventCallback() {
+	void WindowsWindow::CreateWindowResizeEventCallback() const {
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height) {
 			// we can only dereference it like this because we know that the data at that 
 			// address is infact of type WindowData since we created it on line 31
@@ -77,7 +81,7 @@ namespace MyEngine {
 		});
 	}
 
-	void WindowsWindow::CreateWindowCloseEventCallback() {
+	void WindowsWindow::CreateWindowCloseEventCallback() const {
 		glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window) {
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 			WindowCloseEvent event;
@@ -85,7 +89,7 @@ namespace MyEngine {
 		});
 	}
 
-	void WindowsWindow::CreateKeyEventCallback() {
+	void WindowsWindow::CreateKeyEventCallback() const {
 		glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
@@ -106,6 +110,34 @@ namespace MyEngine {
 					break;
 				}
 			}
+		});
+	}
+
+	void WindowsWindow::CreateMouseEventCallback() const {
+		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int button, int action, int mods) {
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			
+			switch (action) {
+				case GLFW_PRESS: {
+					MouseButtonPressedEvent event(button);
+					data.EventCallback(event);
+					break;
+				}
+				case GLFW_RELEASE: {
+					MouseButtonReleasedEvent event(button);
+					data.EventCallback(event);
+					break;
+				}
+			}
+		});
+	}
+
+	void WindowsWindow::CreateMouseScrollEventCallback() const {
+		glfwSetScrollCallback(m_Window, [](GLFWwindow* window, double xOffset, double yOffset) {
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+			MouseScrolledEvent event((float)xOffset, (float)yOffset);
+			data.EventCallback(event);
 		});
 	}
 }
